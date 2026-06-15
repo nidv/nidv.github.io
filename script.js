@@ -66,7 +66,7 @@ const translations = {
     'hero.scroll':       'Scroll to explore',
     'about.h1':          'A bit',
     'about.h2':          'about me.',
-    'about.p1':          "I'm a <strong>developer and designer</strong> with a passion for building clean, purposeful interfaces. I believe good design is invisible; it just works, and it feels right.",
+    'about.p1':          "I'm a <strong>developer</strong> with a passion for building clean, purposeful interfaces. I believe good design is invisible; it just works, and it feels right.",
     'about.p2':          'My work lives at the intersection of aesthetics and function. I enjoy taking complex ideas and distilling them into simple, elegant solutions that are a pleasure to use.',
     'projects.h':        'Projects',
     'projects.sub':      'Selected work',
