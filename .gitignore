@@ -1,0 +1,16 @@
+# Python virtualenv for local rendered verification (Playwright)
+.venv/
+
+# Generated verification screenshots
+tests/screenshots/
+
+# Python caches and scripts (tests/tooling kept out of the published site)
+__pycache__/
+*.pyc
+*.py
+
+# Local workflow / editor / tooling artifacts
+plan.md
+workflow-friction.log
+.vscode/
+.claude/
