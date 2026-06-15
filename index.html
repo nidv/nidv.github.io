@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- language toggle -->
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <span class="lang-sep">/</span>
+    <button class="lang-btn" data-lang="sv">SV</button>
+  </div>
+
+  <!-- side nav dots -->
+  <nav class="side-nav" aria-label="Jump to section">
+    <button class="dot active" data-i="0" aria-label="Home"></button>
+    <button class="dot"        data-i="1" aria-label="About"></button>
+    <button class="dot"        data-i="2" aria-label="Projects"></button>
+    <button class="dot"        data-i="3" aria-label="Certificates"></button>
+    <button class="dot"        data-i="4" aria-label="Contact"></button>
+  </nav>
+
+  <div class="scroll-wrap" id="wrap">
+
+    <!-- ── 01 HERO ── -->
+    <section id="hero">
+      <span class="s-label">Portfolio</span>
+      <div class="inner">
+        <p class="hero-eye" data-i18n="hero.eye">Developer</p>
+        <h1 class="hero-name" id="hero-name"></h1>
+        <p class="hero-sub" data-i18n="hero.sub">Crafting thoughtful digital experiences - where clean code meets considered design.</p>
+      </div>
+      <div class="scroll-hint">
+        <span class="hint-line"></span>
+        <span data-i18n="hero.scroll">Scroll to explore</span>
+      </div>
+      <span class="s-num" aria-hidden="true">01</span>
+    </section>
+
+    <!-- ── 02 ABOUT ── -->
+    <section id="about">
+      <span class="s-label" data-i18n="label.about">About</span>
+      <div class="inner">
+        <div class="about-grid">
+          <div>
+            <h2 class="about-h r"><span data-i18n="about.h1">A bit</span><br><em data-i18n="about.h2">about me.</em></h2>
+            <div class="rule r d1"></div>
+          </div>
+          <div>
+            <p class="about-p r d1" data-i18n-html="about.p1">
+              I'm a <strong>developer</strong> with a passion for building clean, purposeful interfaces. I believe good design is invisible; it just works, and it feels right.
+            </p>
+            <p class="about-p r d2" data-i18n="about.p2">
+              My work lives at the intersection of aesthetics and function. I enjoy taking complex ideas and distilling them into simple, elegant solutions that are a pleasure to use.
+            </p>
+            <div class="tags r d3">
+              <span class="tag">HTML / CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">React</span>
+              <span class="tag">C#</span>
+              <span class="tag">UI Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="s-num" aria-hidden="true">02</span>
+    </section>
+
+    <!-- ── 03 PROJECTS ── -->
+    <section id="projects">
+      <span class="s-label" data-i18n="label.work">Work</span>
+      <div class="inner">
+        <h2 class="sh r" data-i18n="projects.h">Projects</h2>
+        <p class="ss r d1" data-i18n="projects.sub">Selected work</p>
+        <div class="proj-grid">
+
+          <a href="https://cakery-website-bice.vercel.app/" target="_blank" rel="noopener noreferrer" class="proj-card r d2">
+            <p class="proj-type" data-i18n="cakery.type">Web · Client</p>
+            <h3 class="proj-name" data-i18n="cakery.name">Cakery Website</h3>
+            <p class="proj-desc" data-i18n="cakery.desc">A delightful bakery website with an elegant product showcase, warm visual identity, and seamless browsing experience for a local cakery.</p>
+            <div class="proj-arrow" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 10L10 2M10 2H4M10 2V8"/>
+              </svg>
+            </div>
+          </a>
+          
+          <a href="https://nidv.github.io/casino-slots-game/" target="_blank" rel="noopener noreferrer" class="proj-card r d3">
+            <p class="proj-type" data-i18n="casino.type">Web · Personal</p>
+            <h3 class="proj-name" data-i18n="casino.name">Casino Slots Game</h3>
+            <p class="proj-desc" data-i18n="casino.desc">A clean and responsive 3-reel casino slots game, featuring engaging gameplay.</p>
+            <div class="proj-arrow" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 10L10 2M10 2H4M10 2V8"/>
+              </svg>
+            </div>
+          </a>          
+
+          <a href="https://nidv.github.io/cv-website/" target="_blank" rel="noopener noreferrer" class="proj-card r d4">
+            <p class="proj-type" data-i18n="cv.type">Web · Personal</p>
+            <h3 class="proj-name" data-i18n="cv.name">CV Website</h3>
+            <p class="proj-desc" data-i18n="cv.desc">A clean and responsive CV website presenting professional experience, education, and skills in a structured, readable format.</p>
+            <div class="proj-arrow" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 10L10 2M10 2H4M10 2V8"/>
+              </svg>
+            </div>
+          </a>
+
+        </div>
+      </div>
+      <span class="s-num" aria-hidden="true">03</span>
+    </section>
+
+    <!-- ── 04 CERTIFICATES ── -->
+    <section id="certificates">
+      <span class="s-label" data-i18n="label.credentials">Credentials</span>
+      <div class="inner">
+        <h2 class="sh r" data-i18n="certs.h">Certificates</h2>
+        <p class="ss r d1" data-i18n="certs.sub">Verified credentials</p>
+
+        <a href="https://www.freecodecamp.org/certification/fcc-d6912b05-84be-44ed-93c1-dea045f7cf9d/foundational-c-sharp-with-microsoft" target="_blank" rel="noopener noreferrer" class="cert-card r d2">
+          <div class="cert-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"/>
+              <path d="M8.56 14.42a7 7 0 1 0 6.88 0M12 14v7M9 18l3 3 3-3"/>
+            </svg>
+          </div>
+          <div>
+            <p class="cert-issuer" data-i18n="cert1.issuer">freeCodeCamp &amp; Microsoft · 2026</p>
+            <h3 class="cert-name" data-i18n="cert1.name">C# Programming</h3>
+            <p class="cert-sub" data-i18n="cert1.sub">Foundational C# with Microsoft</p>
+          </div>
+          <span class="cert-badge" data-i18n="cert1.badge">Verified</span>
+        </a>
+      </div>
+      <span class="s-num" aria-hidden="true">04</span>
+    </section>
+
+    <!-- ── 05 CONTACT ── -->
+    <section id="contact">
+      <span class="s-label" data-i18n="label.contact">Contact</span>
+      <div class="inner">
+        <h2 class="contact-h r"><span data-i18n="contact.h1">Let's</span><br><em data-i18n="contact.h2">connect.</em></h2>
+        <p class="contact-sub r d1" data-i18n="contact.sub">Open to new opportunities and conversations. Reach out - I'd love to hear from you.</p>
+
+        <div class="clinks">
+
+          <a href="#" class="clink r d2" id="email-link">
+            <div class="clink-left">
+              <div class="clink-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+              </div>
+              <div>
+                <p class="clink-type" data-i18n="email.type">Email</p>
+                <p class="clink-val" id="email-val"></p>
+              </div>
+            </div>
+            <span class="clink-arr" aria-hidden="true">↗</span>
+          </a>
+
+          <a href="https://github.com/nidv" target="_blank" rel="noopener noreferrer" class="clink r d3">
+            <div class="clink-left">
+              <div class="clink-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                  <path d="M9 18c-4.51 2-5-2-7-2"/>
+                </svg>
+              </div>
+              <div>
+                <p class="clink-type" data-i18n="github.type">GitHub</p>
+                <p class="clink-val">github.com/nidv</p>
+              </div>
+            </div>
+            <span class="clink-arr" aria-hidden="true">↗</span>
+          </a>
+
+        </div>
+      </div>
+      <span class="s-num" aria-hidden="true">05</span>
+    </section>
+
+  </div><!-- /scroll-wrap -->
+
+  <script src="script.js" defer></script>
+</body>
+</html>
