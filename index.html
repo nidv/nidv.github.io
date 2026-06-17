@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Huvudet på sidan: här laddar vi in typsnitt, vår CSS och lite metadata.
+     Inget av det här syns direkt för besökaren, det är riggen bakom. -->
 <head>
   <meta charset="UTF-8" />
+  <!-- Gör så att sidan skalar snyggt på mobilen istället för att zooma ut allt -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Säger åt Google & co att inte indexera sidan i sökresultaten -->
   <meta name="robots" content="noindex, nofollow" />
   <title>Portfolio</title>
+  <!-- preconnect = "värm upp" anslutningen till Googles typsnittsservrar så fonterna laddar snabbare -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Hämtar våra två typsnitt: Cormorant Garamond (det fina serif-typsnittet) och DM Sans (brödtexten) -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- language toggle -->
+  <!-- Språkväljaren uppe i hörnet: knapparna byter mellan engelska (EN) och svenska (SV).
+       data-lang talar om för JS:en vilket språk knappen står för. -->
   <div class="lang-toggle">
     <button class="lang-btn active" data-lang="en">EN</button>
     <span class="lang-sep">/</span>
     <button class="lang-btn" data-lang="sv">SV</button>
   </div>
 
-  <!-- side nav dots -->
+  <!-- Prick-menyn till höger: en liten prick per sektion. Klickar man på en prick
+       scrollar sidan dit. data-i är prickens nummer (0 = första sektionen osv). -->
   <nav class="side-nav" aria-label="Jump to section">
     <button class="dot active" data-i="0" aria-label="Home"></button>
     <button class="dot"        data-i="1" aria-label="About"></button>
@@ -28,29 +36,39 @@
     <button class="dot"        data-i="4" aria-label="Contact"></button>
   </nav>
 
+  <!-- Den här lådan håller alla sektioner och är den som faktiskt scrollar.
+       id="wrap" gör att JS:en lätt kan komma åt den. -->
   <div class="scroll-wrap" id="wrap">
 
     <!-- ── 01 HERO ── -->
+    <!-- Startsektionen man möts av: namnet stort, en liten undertext och en scroll-hint längst ner.
+         data-i18n="..." på ett element = "den här texten ska översättas", JS:en byter ut den vid språkbyte. -->
     <section id="hero">
       <span class="s-label">Portfolio</span>
       <div class="inner">
         <p class="hero-eye" data-i18n="hero.eye">Developer</p>
+        <!-- Tom rubrik med flit – namnet fylls i av script.js (det står inte i koden av spam-skäl) -->
         <h1 class="hero-name" id="hero-name"></h1>
         <p class="hero-sub" data-i18n="hero.sub">Crafting thoughtful digital experiences - where clean code meets considered design.</p>
       </div>
+      <!-- Den lilla "scrolla ner"-vinken längst ner på första vyn -->
       <div class="scroll-hint">
         <span class="hint-line"></span>
         <span data-i18n="hero.scroll">Scroll to explore</span>
       </div>
+      <!-- Den stora ljusa siffran i hörnet – bara dekoration, aria-hidden gömmer den för skärmläsare -->
       <span class="s-num" aria-hidden="true">01</span>
     </section>
 
     <!-- ── 02 ABOUT ── -->
+    <!-- "Om mig"-sektionen: rubrik till vänster, text + kompetens-taggar till höger (två kolumner).
+         Klasserna r/d1/d2/d3 styr fade-in-animationen (r = ska animeras, d1/d2... = liten fördröjning). -->
     <section id="about">
       <span class="s-label" data-i18n="label.about">About</span>
       <div class="inner">
         <div class="about-grid">
           <div>
+            <!-- data-i18n-html används istället för data-i18n när texten innehåller HTML (t.ex. <strong>) -->
             <h2 class="about-h r"><span data-i18n="about.h1">A bit</span><br><em data-i18n="about.h2">about me.</em></h2>
             <div class="rule r d1"></div>
           </div>
@@ -61,6 +79,7 @@
             <p class="about-p r d2" data-i18n="about.p2">
               My work lives at the intersection of aesthetics and function. I enjoy taking complex ideas and distilling them into simple, elegant solutions that are a pleasure to use.
             </p>
+            <!-- Små "pill"-taggar med teknikerna jag jobbar med -->
             <div class="tags r d3">
               <span class="tag">HTML / CSS</span>
               <span class="tag">JavaScript</span>
@@ -75,6 +94,8 @@
     </section>
 
     <!-- ── 03 PROJECTS ── -->
+    <!-- Projektsektionen: ett rutnät av kort, ett kort per projekt.
+         Varje kort är en <a>-länk som öppnar projektet i en ny flik. -->
     <section id="projects">
       <span class="s-label" data-i18n="label.work">Work</span>
       <div class="inner">
@@ -82,6 +103,8 @@
         <p class="ss r d1" data-i18n="projects.sub">Selected work</p>
         <div class="proj-grid">
 
+          <!-- target="_blank" = öppna i ny flik, rel="noopener noreferrer" = säkerhetsgrej så nya fliken
+               inte kan peta på vår sida. Pilen längst ner i kortet är en liten SVG-ikon. -->
           <a href="https://cakery-website-bice.vercel.app/" target="_blank" rel="noopener noreferrer" class="proj-card r d2">
             <p class="proj-type" data-i18n="cakery.type">Web · Client</p>
             <h3 class="proj-name" data-i18n="cakery.name">Cakery Website</h3>
@@ -121,6 +144,7 @@
     </section>
 
     <!-- ── 04 CERTIFICATES ── -->
+    <!-- Certifikat-sektionen: ett kort med ikon, utfärdare, namn och en "Verified"-badge.-->
     <section id="certificates">
       <span class="s-label" data-i18n="label.credentials">Credentials</span>
       <div class="inner">
@@ -146,6 +170,7 @@
     </section>
 
     <!-- ── 05 CONTACT ── -->
+    <!-- Kontaktsektionen längst ner: en lista med kontaktlänkar (e-post och GitHub). -->
     <section id="contact">
       <span class="s-label" data-i18n="label.contact">Contact</span>
       <div class="inner">
@@ -154,6 +179,8 @@
 
         <div class="clinks">
 
+          <!-- E-postlänken är tom (href="#" och ingen text) från början – script.js fyller i
+               adressen och mailto:-länken så att botar inte hittar mejlen i källkoden. -->
           <a href="#" class="clink r d2" id="email-link">
             <div class="clink-left">
               <div class="clink-icon">
@@ -170,6 +197,7 @@
             <span class="clink-arr" aria-hidden="true">↗</span>
           </a>
 
+          <!-- GitHub-länken är en vanlig statisk länk-->
           <a href="https://github.com/nidv" target="_blank" rel="noopener noreferrer" class="clink r d3">
             <div class="clink-left">
               <div class="clink-icon">
@@ -193,6 +221,7 @@
 
   </div><!-- /scroll-wrap -->
 
+  <!-- All JavaScript ligger i en egen fil. defer = vänta tills HTML:en är inläst innan scriptet körs -->
   <script src="script.js" defer></script>
 </body>
 </html>

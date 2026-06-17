@@ -1,26 +1,39 @@
 // ── Navigation ───────────────────────────────────────────────
-const wrap     = document.getElementById('wrap');
-const sections = [...document.querySelectorAll('section')];
-const dots     = [...document.querySelectorAll('.dot')];
+// Den här delen sköter allt som har med att hoppa mellan sektionerna att göra:
+// prick-menyn, vilken prick som lyser, fade-in när man scrollar och piltangenterna.
 
+// Hämtar de element vi jobbar med. [...] gör om resultatet till en riktig array
+// så vi kan använda forEach, indexOf osv på dem.
+const wrap     = document.getElementById('wrap');   // scroll-lådan
+const sections = [...document.querySelectorAll('section')]; // alla sektioner
+const dots     = [...document.querySelectorAll('.dot')];    // prickarna i sidomenyn
+
+// Klick på en prick → scrolla mjukt till motsvarande sektion.
+// +d.dataset.i gör om texten "2" till siffran 2 så vi kan slå upp rätt sektion.
 dots.forEach(d => d.addEventListener('click', () => {
   sections[+d.dataset.i].scrollIntoView({ behavior: 'smooth' });
 }));
 
+// IntersectionObserver = en "vakt" som säger till när en sektion kommer in i vyn.
+// När en sektion syns till minst 45% (threshold 0.45) tänder vi rätt prick
+// och lägger på klassen "in" på allt som ska fade:a in (elementen med klassen .r).
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const idx = sections.indexOf(e.target);
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-    e.target.querySelectorAll('.r').forEach(el => el.classList.add('in'));
+    if (!e.isIntersecting) return;          // hoppa över sektioner som lämnar vyn
+    const idx = sections.indexOf(e.target); // vilken sektion i ordningen är det?
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx)); // tänd rätt prick
+    e.target.querySelectorAll('.r').forEach(el => el.classList.add('in')); // dra igång fade-in
   });
 }, { threshold: 0.45, root: wrap });
 
+// Säg åt vakten att hålla koll på varje sektion.
 sections.forEach(s => io.observe(s));
 
+// Låt piltangenterna upp/ner hoppa en sektion i taget.
 document.addEventListener('keydown', e => {
-  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
-  const active = dots.findIndex(d => d.classList.contains('active'));
+  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return; // bry oss bara om upp/ner
+  const active = dots.findIndex(d => d.classList.contains('active')); // var är vi nu?
+  // Räkna ut nästa sektion, men stanna inom listan (Math.min/max = nudda inte kanterna).
   const next   = e.key === 'ArrowDown'
     ? Math.min(active + 1, sections.length - 1)
     : Math.max(active - 1, 0);
@@ -28,33 +41,35 @@ document.addEventListener('keydown', e => {
 });
 
 // ── Obfuscated identity (deters scraping bots) ───────────────
-// Name and email are stored as reversed fragments so the plaintext
-// strings never appear in the page source; assembled at runtime.
 (() => {
+  // rev = liten hjälpare som vänder en sträng baklänges ("abc" → "cba").
   const rev = s => [...s].reverse().join('');
 
-  // Email
+  // E-post: bygger ihop adressen av baklängesvända bitar och sätter mailto:-länken.
   const addr = `${rev('annylrad')}@${rev('moc.liamg')}`;
   const link = document.getElementById('email-link');
   const val  = document.getElementById('email-val');
-  if (link) link.href = 'mailto:' + addr;
-  if (val)  val.textContent = addr;
+  if (link) link.href = 'mailto:' + addr;   // klickbar mailto-länk
+  if (val)  val.textContent = addr;          // adressen som syns på sidan
 
-  // Name
+  // Namn: samma baklänges-trick, och vi bygger ihop hero-rubriken bit för bit.
   const first = rev('annylraD');
   const last  = rev('naV');
   const hero  = document.getElementById('hero-name');
   if (hero) {
-    hero.append(first);
-    hero.append(document.createElement('br'));
-    const em = document.createElement('em');
+    hero.append(first);                      // förnamnet
+    hero.append(document.createElement('br')); // radbrytning
+    const em = document.createElement('em');   // efternamnet i kursiv stil
     em.textContent = last + '.';
     hero.append(em);
   }
+  // Sätt flikens titel till hela namnet.
   document.title = `${first} ${last} - Portfolio`;
 })();
 
 // ── Translations ─────────────────────────────────────────────
+// Här bor alla texter på båda språken. Varje nyckel (t.ex. 'hero.eye') matchar
+// ett data-i18n="..." ute i HTML:en. en = engelska, sv = svenska.
 const translations = {
   en: {
     'label.about':       'About',
@@ -129,34 +144,41 @@ const translations = {
 };
 
 // ── Language switcher ────────────────────────────────────────
-let currentLang = 'en';
+// Sköter själva språkbytet när man klickar EN/SV.
+let currentLang = 'en'; // håller koll på vilket språk som är aktivt just nu
 
+// applyLang byter ut alla texter på sidan till valt språk.
 function applyLang(lang) {
-  const t = translations[lang];
+  const t = translations[lang]; // plocka rätt språkpaket
+  // Vanliga texter: byt ut textinnehållet. ?? betyder "finns ingen översättning, behåll det som står".
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t[el.dataset.i18n] ?? el.textContent;
   });
+  // Texter som innehåller HTML (t.ex. <strong>): använd innerHTML istället.
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     el.innerHTML = t[el.dataset.i18nHtml] ?? el.innerHTML;
   });
-  document.documentElement.lang = lang;
+  document.documentElement.lang = lang; // uppdatera lang-attributet på <html>
 }
 
 const langBtns = [...document.querySelectorAll('.lang-btn')];
 
+// Lyssna på klick på språkknapparna.
 langBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const lang = btn.dataset.lang;
-    if (lang === currentLang) return;
+    if (lang === currentLang) return; // redan på det språket? gör inget
     currentLang = lang;
 
+    // Markera den klickade knappen som aktiv (och avmarkera den andra).
     langBtns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
 
+    // Liten fade-effekt: tona ut, byt texterna när det är osynligt, tona in igen.
     wrap.style.transition = 'opacity 0.15s ease';
     wrap.style.opacity    = '0';
     setTimeout(() => {
       applyLang(lang);
       wrap.style.opacity = '1';
-    }, 150);
+    }, 150); // 150 ms matchar fade-tiden ovan
   });
 });

@@ -1,17 +1,23 @@
+/* Nollställning: tar bort webbläsarens standard-marginaler/padding och gör så att
+   padding/border räknas in i elementets bredd (box-sizing). En vanlig "rensa bordet"-rad. */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* :root = sidans variabler (färgpaletten). Ändrar man en färg här slår den igenom överallt.
+   var(--bg) osv används sedan i hela filen. */
 :root {
-  --bg:          #F6F3ED;
-  --bg-card:     #EDE9E1;
-  --text:        #1A1917;
-  --muted:       #8C8876;
-  --accent:      #B87C55;
-  --accent-dim:  rgba(184,124,85,.12);
-  --border:      rgba(26,25,23,.09);
+  --bg:          #F6F3ED; /* bakgrund, varm beige */
+  --bg-card:     #EDE9E1; /* lite mörkare beige för kort */
+  --text:        #1A1917; /* nästan svart text */
+  --muted:       #8C8876; /* dämpad grå för sekundär text */
+  --accent:      #B87C55; /* accentfärg, varm terrakotta */
+  --accent-dim:  rgba(184,124,85,.12); /* genomskinlig variant av accenten */
+  --border:      rgba(26,25,23,.09); /* svaga linjer/kanter */
 }
 
-html { font-size: 16px; }
+html { font-size: 16px; } /* utgångsstorlek – rem-värden räknas utifrån den här */
 
+/* Själva sidkroppen: sätter bakgrund, typsnitt och låser höjden till en skärm
+   (overflow: hidden gör att det är scroll-lådan, inte body, som scrollar). */
 body {
   background: var(--bg);
   color: var(--text);
@@ -23,6 +29,9 @@ body {
 }
 
 /* ─── noise overlay ─── */
+/* Lägger ett knappt synligt brus-/kornlager över hela sidan (opacity .025) för en
+   analog, lite filmig känsla. pointer-events: none så det inte är i vägen för klick.
+   Bruset är en liten SVG inbakad direkt i CSS:en. */
 body::after {
   content: '';
   position: fixed;
@@ -34,16 +43,20 @@ body::after {
 }
 
 /* ─── scroll container ─── */
+/* Lådan som faktiskt scrollar. scroll-snap-type: y mandatory = sidan "snäpper" fast
+   en hel sektion i taget när man scrollar, som ett bildspel. Scrollbaren göms bort. */
 .scroll-wrap {
   height: 100vh;
-  height: 100dvh;
+  height: 100dvh; /* dvh = tar hänsyn till mobilens adressfält */
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
 }
-.scroll-wrap::-webkit-scrollbar { display: none; }
+.scroll-wrap::-webkit-scrollbar { display: none; } /* göm scrollbaren i Chrome/Safari */
 
 /* ─── sections ─── */
+/* Varje sektion fyller hela skärmen och centrerar sitt innehåll.
+   scroll-snap-align: start = det här är en punkt scrollen snäpper fast vid. */
 section {
   height: 100vh;
   scroll-snap-align: start;
@@ -62,9 +75,11 @@ section {
   overflow: visible;
 }
 
+/* Innehållslådan som håller texten lagom bred och centrerad (max 960px) */
 .inner { max-width: 960px; width: 100%; position: relative; z-index: 1; }
 
 /* ─── language toggle ─── */
+/* Språkväljaren – fastnaglad (fixed) uppe i högra hörnet så den alltid syns */
 .lang-toggle {
   position: fixed;
   top: 2rem;
@@ -87,8 +102,8 @@ section {
   padding: 0;
   transition: color .25s;
 }
-.lang-btn.active { color: var(--accent); }
-.lang-btn:not(.active):hover { color: var(--text); }
+.lang-btn.active { color: var(--accent); } /* aktivt språk lyser i accentfärgen */
+.lang-btn:not(.active):hover { color: var(--text); } /* det inaktiva mörknar vid hover */
 
 .lang-sep {
   font-size: .6rem;
@@ -97,6 +112,7 @@ section {
 }
 
 /* ─── side nav ─── */
+/* Prick-menyn till höger, lodrätt centrerad (top 50% + translateY för att nudga upp halva sin höjd) */
 .side-nav {
   position: fixed;
   right: 2rem;
@@ -116,9 +132,10 @@ section {
   padding: 0;
   transition: background .3s, transform .3s;
 }
-.dot.active { background: var(--accent); transform: scale(1.7); }
+.dot.active { background: var(--accent); transform: scale(1.7); } /* aktiv prick: accentfärg + lite större */
 
 /* ─── section meta ─── */
+/* Den lilla versala etiketten uppe till vänster i varje sektion ("About", "Work" ...) */
 .s-label {
   position: absolute;
   top: 2rem; left: 5vw;
@@ -128,6 +145,7 @@ section {
   color: var(--muted);
 }
 
+/* Den stora dekorativa siffran (01–05) nere i högra hörnet av varje sektion */
 .s-num {
   position: absolute;
   bottom: 1.5rem; right: 4rem;
@@ -141,12 +159,16 @@ section {
 }
 
 /* ─── reveal ─── */
+/* Fade-in-effekten när man scrollar fram en sektion. Element med klassen .r börjar
+   osynliga och lite nedflyttade; JS:en lägger på .in när sektionen syns, då glider de in.
+   .d1–.d5 lägger på en liten fördröjning så sakerna tonar in i tur och ordning (trappstegseffekt).
+   --rd är samma fördröjning sparad som variabel, som korten återanvänder längre ner. */
 .r {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity .65s ease, transform .65s ease;
 }
-.r.in { opacity: 1; transform: none; }
+.r.in { opacity: 1; transform: none; } /* slutläget: synlig och på plats */
 .d1 { transition-delay: .08s; --rd: .08s; }
 .d2 { transition-delay: .18s; --rd: .18s; }
 .d3 { transition-delay: .28s; --rd: .28s; }
@@ -156,8 +178,10 @@ section {
 /* ════════════════════════════════════
    01  HERO
 ════════════════════════════════════ */
+/* Hero ligger med innehållet i nederkant (flex-end) istället för centrerat */
 #hero { align-items: flex-end; padding-bottom: 10vh; }
 
+/* Den lilla versala "Developer"-etiketten ovanför namnet. animation: up = glider upp vid laddning. */
 .hero-eye {
   font-size: .7rem;
   letter-spacing: .25em;
@@ -170,6 +194,8 @@ section {
   animation: up .7s .15s forwards;
 }
 
+/* Det stora namnet. clamp(min, helst, max) = växer med skärmen men aldrig mindre
+   än 4.5rem eller större än 9.5rem. Snyggt responsivt utan massa media queries. */
 .hero-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(4.5rem, 11vw, 9.5rem);
@@ -193,6 +219,7 @@ section {
   animation: up .7s .5s forwards;
 }
 
+/* "Scroll to explore"-vinken nere till vänster på första vyn */
 .scroll-hint {
   position: absolute;
   bottom: 2.5rem; left: 5vw;
@@ -205,12 +232,14 @@ section {
   animation: up .7s .85s forwards;
 }
 
+/* Det lilla strecket bredvid scroll-texten ... */
 .hint-line {
   width: 38px; height: 1px;
   background: var(--muted);
   overflow: hidden;
   position: relative;
 }
+/* ... och den lilla accentfärgade pricken som sveper fram och tillbaka över strecket (animation: sweep) */
 .hint-line::after {
   content: '';
   position: absolute;
@@ -223,6 +252,8 @@ section {
 /* ════════════════════════════════════
    02  ABOUT
 ════════════════════════════════════ */
+/* Om-sektionen i två kolumner: rubrik till vänster, text till höger.
+   1fr 1.3fr = högerkolumnen får lite mer plats. */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
@@ -239,6 +270,7 @@ section {
 }
 .about-h em { display: block; font-style: italic; color: var(--muted); }
 
+/* Litet accentfärgat streck som dekoration under rubriken */
 .rule { width: 36px; height: 1px; background: var(--accent); margin-bottom: 1.5rem; }
 
 .about-p {
@@ -249,7 +281,9 @@ section {
 }
 .about-p strong { color: var(--text); font-weight: 500; }
 
+/* Behållaren för teknik-taggarna – flex-wrap gör att de radar om sig på nästa rad vid behov */
 .tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.75rem; }
+/* Själva taggen: en liten ruta med ram */
 .tag {
   padding: .3rem .85rem;
   background: var(--bg-card);
@@ -264,6 +298,8 @@ section {
 /* ════════════════════════════════════
    03  PROJECTS
 ════════════════════════════════════ */
+/* .sh = sektionsrubrik (t.ex. "Projects"), .ss = liten undertext under den ("Selected work").
+   Återanvänds av både projekt- och certifikatsektionen. */
 .sh {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.5rem, 5vw, 4rem);
@@ -278,12 +314,15 @@ section {
   margin-bottom: 2.75rem;
 }
 
+/* Projektkorten i ett rutnät med två lika breda kolumner */
 .proj-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
 }
 
+/* Ett projektkort. Hela kortet är en länk. overflow: hidden så accent-strecket nedtill
+   (::after) hålls inom kortets kanter. */
 .proj-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -297,6 +336,7 @@ section {
   text-decoration: none;
   color: inherit;
 }
+/* Accentstrecket längst ner på kortet. scaleX(0) = ihopdraget/osynligt från början ... */
 .proj-card::after {
   content: '';
   position: absolute;
@@ -304,11 +344,11 @@ section {
   width: 100%; height: 2px;
   background: var(--accent);
   transform: scaleX(0);
-  transform-origin: left;
+  transform-origin: left; /* växer ut från vänster */
   transition: transform .4s ease;
 }
-.proj-card:hover { border-color: rgba(184,124,85,.25); }
-.proj-card:hover::after { transform: scaleX(1); }
+.proj-card:hover { border-color: rgba(184,124,85,.25); } /* ramen får en touch av accent vid hover */
+.proj-card:hover::after { transform: scaleX(1); } /* ... och strecket dras ut vid hover */
 
 .proj-type {
   font-size: .63rem;
@@ -329,6 +369,7 @@ section {
   line-height: 1.75;
 }
 
+/* Den lilla runda pil-knappen i kortets hörn (fylls med accentfärg vid hover) */
 .proj-arrow {
   position: absolute;
   bottom: 1.4rem; right: 1.4rem;
@@ -347,6 +388,8 @@ section {
 /* ════════════════════════════════════
    04  CERTIFICATES
 ════════════════════════════════════ */
+/* Certifikatkortet i tre kolumner: ikon | text | "Verified"-badge.
+   (52px för ikonen, 1fr tar resten åt texten, auto = badgen tar precis sin egen bredd) */
 .cert-card {
   display: grid;
   grid-template-columns: 52px 1fr auto;
@@ -362,6 +405,7 @@ section {
   text-decoration: none;
   color: inherit;
 }
+/* Den lodräta accentfärgade kanten längst till vänster på certifikatkortet */
 .cert-card::before {
   content: '';
   position: absolute;
@@ -370,6 +414,7 @@ section {
   background: var(--accent);
 }
 
+/* Den runda ikon-cirkeln till vänster i kortet */
 .cert-icon {
   width: 52px; height: 52px;
   background: var(--accent-dim);
@@ -393,6 +438,7 @@ section {
 }
 .cert-sub { font-size: .8rem; color: var(--muted); }
 
+/* "Verified"-märket till höger. white-space: nowrap = texten bryts aldrig till två rader. */
 .cert-badge {
   font-size: .62rem;
   letter-spacing: .1em;
@@ -424,8 +470,11 @@ section {
   margin-bottom: 3rem;
 }
 
+/* Listan med kontaktlänkar, staplade på varandra */
 .clinks { display: flex; flex-direction: column; }
 
+/* En kontaktrad (e-post/GitHub): ikon + text till vänster, pil till höger,
+   space-between knuffar isär dem mot varsin kant. Tunn linje mellan raderna. */
 .clink {
   display: flex;
   align-items: center;
@@ -471,12 +520,14 @@ section {
   color: var(--muted);
   transition: transform .3s, color .3s;
 }
-.clink:hover .clink-arr { transform: translate(4px,-4px); color: var(--accent); }
+.clink:hover .clink-arr { transform: translate(4px,-4px); color: var(--accent); } /* pilen åker snett upp/höger vid hover */
 
 /* ─── animations ─── */
+/* "up" = glid uppåt och tona in. Används av hero-elementen vid sidladdning. */
 @keyframes up {
   to { opacity: 1; transform: none; }
 }
+/* "sweep" = den lilla pricken som glider över scroll-strecket och pausar borta i kanten */
 @keyframes sweep {
   0%   { left: -100%; }
   50%  { left: 100%; }
@@ -484,6 +535,10 @@ section {
 }
 
 /* ─── responsive ─── */
+/* Här nedanför justeras layouten för mindre/kortare skärmar (mobil, surfplatta, liggande mobil).
+   Grejen är: det fina "ett helt block i taget"-bildspelet sparas till stora skärmar, medan
+   mindre skärmar får ett vanligt flöde där sektionerna växer med innehållet och inget kläms av.
+   (De engelska blockkommentarerna under förklarar varje brytpunkt mer i detalj.) */
 
 /*
   Compact regime: every screen that is not a comfortably large display.
