@@ -81,18 +81,22 @@ const translations = {
     'hero.scroll':       'Scroll to explore',
     'about.h1':          'A bit',
     'about.h2':          'about me.',
-    'about.p1':          "I'm a <strong>developer</strong> with a passion for building clean, purposeful interfaces. I believe good design is invisible; it just works, and it feels right.",
+    'about.p1':          "I'm a <strong>developer</strong> with a passion for building clean and purposeful interfaces. I believe good design is invisible; it just works.",
     'about.p2':          'My work lives at the intersection of aesthetics and function. I enjoy taking complex ideas and distilling them into simple, elegant solutions that are a pleasure to use.',
+    'about.p3':          'I have a background as an ERP developer, specializing in Business Central (previously known as Microsoft Dynamics NAV/Navision). Starting in 2026, I am furthering my education in full-stack .NET development with a focus on AI, broadening my expertise in modern development tools.',
     'projects.h':        'Projects',
     'projects.sub':      'Selected work',
-    'cv.type':           'Web · Personal',
-    'cv.name':           'CV Website',
+    'stantrack.type':    'Full-stack · Personal',
+    'stantrack.name':    'StanTrack',
+    'stantrack.desc':    'A full-stack webapp for fans to follow their favorite celebs and see their upcoming events. Note: Due to being on Azure Free Plan, the site is asleep due to inactivity. Please allow a few minutes for the site to wake up upon visiting.',
+    'cv.type':           'Web · Fictive',
+    'cv.name':           'CV',
     'cv.desc':           'A clean and responsive CV website presenting professional experience, education, and skills in a structured, readable format.',
     'casino.type':       'Web · Personal',
     'casino.name':       'Casino Slots Game',
     'casino.desc':       'A clean and responsive 3-reel casino slots game, featuring engaging gameplay.',
-    'cakery.type':       'Web · Client',
-    'cakery.name':       'Cakery Website',
+    'cakery.type':       'Web · Fictive',
+    'cakery.name':       'Cakery',
     'cakery.desc':       'A delightful bakery website with an elegant product showcase, warm visual identity, and seamless browsing experience for a local cakery.',
     'certs.h':           'Certificates',
     'certs.sub':         'Verified credentials',
@@ -100,6 +104,10 @@ const translations = {
     'cert1.name':        'C# Programming',
     'cert1.sub':         'Foundational C# with Microsoft',
     'cert1.badge':       'Verified',
+    'cert2.issuer':      '1ClickFactory · 2018',
+    'cert2.name':        'Extensions 2.0 Development',
+    'cert2.sub':         'Business Central extension development',
+    'cert2.badge':       'Verified',
     'contact.h1':        "Let's",
     'contact.h2':        'connect.',
     'contact.sub':       "Open to new opportunities and conversations. Reach out - I'd love to hear from you.",
@@ -116,17 +124,21 @@ const translations = {
     'hero.scroll':       'Scrolla för att utforska',
     'about.h1':          'Lite',
     'about.h2':          'om mig.',
-    'about.p1':          'Jag är en <strong>utvecklare</strong> med passion för att bygga rena och genomtänkta gränssnitt. Jag tror att bra design är osynlig; den fungerar bara, och den känns rätt.',
-    'about.p2':          'Mitt arbete lever i navet mellan estetik och funktion. Jag gillar att ta komplexa idéer och bryta ner dem till enkla och eleganta lösningar som är ett nöje att använda.',
+    'about.p1':          'Jag är en <strong>utvecklare</strong> med passion för att bygga rena och genomtänkta lösningar. Jag tror att bra design är osynlig; den fungerar bara.',
+    'about.p2':          'Mitt arbete lever i navet mellan estetik och funktion. Jag gillar att ta komplexa idéer och bryta ner dem till enkla och eleganta lösningar.',
+    'about.p3':          'Jag har en bakgrund som utvecklare inom Microsoft Business Central (tidigare Dynamics NAV/Navision). Från 2026 breddar jag min kompetens inom fullstack .NET-utveckling med inriktning mot AI och fördjupar mig i moderna verktyg.',
     'projects.h':        'Projekt',
     'projects.sub':      'Urvalt arbete',
-    'cv.type':           'Webb · Personlig',
+    'stantrack.type':    'Fullstack · Personlig',
+    'stantrack.name':    'StanTrack',
+    'stantrack.desc':    'En fullstack-webbapp där fans kan följa sina favoritkändisar och se deras kommande evenemang. Obs: Eftersom appen ligger på Azures gratisplan "sover" den vid inaktivitet. Räkna med några minuters uppstartstid vid första besöket.',
+    'cv.type':           'Webb · Fiktiv',
     'cv.name':           'CV',
     'cv.desc':           'En ren och responsiv CV-hemsida som presenterar yrkeserfarenhet, utbildning och kompetenser i ett strukturerat och lättläst format.',
     'casino.type':       'Webb · Personlig',
     'casino.name':       'Casino Slots-spel',
     'casino.desc':       'Ett rent och responsivt casinospel med tre hjul och engagerande spelupplevelse.',
-    'cakery.type':       'Webb · Klient',
+    'cakery.type':       'Webb · Fiktiv',
     'cakery.name':       'Konditori',
     'cakery.desc':       'En charmig konditori-hemsida med en elegant produktpresentation, varm visuell identitet och smidig surfupplevelse för ett lokalt konditori.',
     'certs.h':           'Certifikat',
@@ -135,9 +147,13 @@ const translations = {
     'cert1.name':        'C#-programmering',
     'cert1.sub':         'Grundläggande C# med Microsoft',
     'cert1.badge':       'Verifierad',
+    'cert2.issuer':      '1ClickFactory · 2018',
+    'cert2.name':        'Extensions 2.0 Development',
+    'cert2.sub':         'Tilläggsutveckling för Business Central',
+    'cert2.badge':       'Verifierad',
     'contact.h1':        'Låt oss',
     'contact.h2':        'hålla kontakten.',
-    'contact.sub':       'Öppen för nya möjligheter och samtal. Hör gärna av dig - ser fram emot att höra från dig.',
+    'contact.sub':       'Öppen för nya möjligheter och samtal.\nHör gärna av er, ser fram emot det.',
     'email.type':        'E-post',
     'github.type':       'GitHub',
   },
@@ -154,9 +170,13 @@ function applyLang(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t[el.dataset.i18n] ?? el.textContent;
   });
-  // Texter som innehåller HTML (t.ex. <strong>): använd innerHTML istället.
+  // Texter som innehåller HTML (t.ex. <strong>): parsa som DOM-noder istället.
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    el.innerHTML = t[el.dataset.i18nHtml] ?? el.innerHTML;
+    const html = t[el.dataset.i18nHtml];
+    if (html !== undefined) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      el.replaceChildren(...doc.body.childNodes);
+    }
   });
   document.documentElement.lang = lang; // uppdatera lang-attributet på <html>
 }
@@ -182,3 +202,22 @@ langBtns.forEach(btn => {
     }, 150); // 150 ms matchar fade-tiden ovan
   });
 });
+
+// ── Auto-detect language by location ─────────────────────────
+// Fetches user's rough location by IP to select the starting language.
+// If the visitor is from Sweden (SE), defaults to Swedish, otherwise English.
+fetch('https://ipapi.co/json/')
+  .then(res => res.json())
+  .then(data => {
+    if (data && data.country_code === 'SE') {
+      // Hitta den svenska knappen och simulera ett klick på den.
+      const svBtn = langBtns.find(b => b.dataset.lang === 'sv');
+      if (svBtn && currentLang !== 'sv') {
+        svBtn.click();
+      }
+    }
+  })
+  .catch(err => {
+    // Om geolokaliseringen misslyckas (t.ex. nertid eller adblocker):
+    // Vi låter bara sidan vara kvar på engelska (som den är från början).
+  });

@@ -263,10 +263,11 @@ section {
 
 .about-h {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(3.5rem, 7vw, 6rem);
   font-weight: 300;
   line-height: 1;
   margin-bottom: 1rem;
+  margin-top: -0.5rem; /* putta upp rubriken lite */
 }
 .about-h em { display: block; font-style: italic; color: var(--muted); }
 
@@ -388,17 +389,24 @@ section {
 /* ════════════════════════════════════
    04  CERTIFICATES
 ════════════════════════════════════ */
+/* Certifikatkorten ligger bredvid varandra på desktop, staplade på mobil */
+.cert-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.cert-row .cert-card { flex: 1 1 320px; }
+
 /* Certifikatkortet i tre kolumner: ikon | text | "Verified"-badge.
    (52px för ikonen, 1fr tar resten åt texten, auto = badgen tar precis sin egen bredd) */
 .cert-card {
   display: grid;
   grid-template-columns: 52px 1fr auto;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  padding: 2.25rem 2.5rem;
-  max-width: 640px;
+  padding: 2rem 1.75rem;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -432,7 +440,7 @@ section {
 }
 .cert-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.65rem;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: .2rem;
 }
@@ -467,6 +475,7 @@ section {
   color: var(--muted);
   max-width: 380px;
   line-height: 1.75;
+  white-space: pre-line;
   margin-bottom: 3rem;
 }
 
