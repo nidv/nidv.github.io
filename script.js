@@ -126,7 +126,7 @@ const translations = {
     'about.h2':          'om mig.',
     'about.p1':          'Jag är en <strong>utvecklare</strong> med passion för att bygga rena och genomtänkta lösningar. Jag tror att bra design är osynlig; den fungerar bara.',
     'about.p2':          'Mitt arbete lever i navet mellan estetik och funktion. Jag gillar att ta komplexa idéer och bryta ner dem till enkla och eleganta lösningar.',
-    'about.p3':          'Jag har en bakgrund som utvecklare inom Microsoft Business Central (tidigare Dynamics NAV/Navision). Från 2026 breddar jag min kompetens inom fullstack .NET-utveckling med inriktning mot AI och fördjupar mig i moderna verktyg.',
+    'about.p3':          'Jag har en bakgrund som utvecklare inom Microsoft Business Central (tidigare Dynamics NAV/Navision). Från 2026 breddar jag min kompetens inom fullstack .NET-utveckling med AI-inriktning och fördjupar mig i moderna verktyg.',
     'projects.h':        'Projekt',
     'projects.sub':      'Urvalt arbete',
     'stantrack.type':    'Fullstack · Personlig',
